@@ -1,4 +1,4 @@
-// Manage the selected room, display the three room cards, 
+// Manage the selected room, display the three room cards,
 // and connect the booking form to backend.
 import { useState } from "react";
 import Header from "./components/Header";
@@ -54,18 +54,13 @@ function App() {
         <h2>Choose your room</h2>
 
         {rooms.map((room) => (
-          <RoomCard
-            key={room.id}
-            room={room}
-            onSelect={setSelectedRoom}
-          />
+          <RoomCard key={room.id} room={room} onSelect={setSelectedRoom} />
         ))}
       </section>
 
-      <BookingForm
-        selectedRoom={selectedRoom}
-        onBook={handleBooking}
-      />
+      {selectedRoom && (
+        <BookingForm selectedRoom={selectedRoom} onBook={handleBooking} />
+      )}
 
       {message && <p role="status">{message}</p>}
     </main>
@@ -73,4 +68,3 @@ function App() {
 }
 
 export default App;
-
