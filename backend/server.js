@@ -79,3 +79,60 @@ const PORT = 5001;
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
+
+
+/* Secret admin endpoints */
+
+// List all bookings
+app.get("/admin-secret-bookings", async (req, res) => {
+  try {
+    const data = await getBookings();
+    res.json(data);
+  } catch (error) {
+    console.error("Could not fetch bookings:", error);
+    res.status(500).json({ message: "Could not fetch bookings." });
+  }
+});
+
+// Update a booking
+app.put("/admin-secret-bookings/:id", async (req, res) => {
+  const { id } = req.params;
+  const {
+    roomType,
+    guestName,
+    guestEmail,
+    guestPhone,
+    checkIn,
+    checkOut
+  } = req.body;
+
+  try {
+    await updateBooking(
+      id,
+      roomType,
+      guestName,
+      guestEmail,
+      guestPhone,
+      checkIn,
+      checkOut
+    );
+
+    res.json({ message: `Booking ${id} updated.` });
+  } catch (error) {
+    console.error("Could not update booking:", error);
+    res.status(500).json({ message: "Could not update booking." });
+  }
+});
+
+// Delete a booking
+app.delete("/admin-secret-bookings/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await deleteBooking(id);
+    res.json({ message: `Booking ${id} deleted.` });
+  } catch (error) {
+    console.error("Could not delete booking:", error);
+    res.status(500).json({ message: "Could not delete booking." });
+  }
+});

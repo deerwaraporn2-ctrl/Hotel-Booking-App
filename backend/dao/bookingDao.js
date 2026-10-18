@@ -26,7 +26,7 @@ async function updateBooking(id, roomType, guestName, guestEmail, guestPhone, ch
        `UPDATE bookings
         SET room_type = ?, guest_name = ?, guest_email = ?, guest_phone = ?, check_in = ?, check_out = ?
         WHERE id = ?`, 
-        [roomType, guestName, guestEmail, guestPhone, checkIn, checkOut. id]
+        [roomType, guestName, guestEmail, guestPhone, checkIn, checkOut, id]
     );
 }
 
