@@ -12,19 +12,19 @@ const rooms = [
     id: 1,
     name: "Single",
     description: "A comfortable room for one guest.",
-    image: "https://placehold.co/600x400?text=Single+Room",
+    image: "/images/single_bedroom.webp",
   },
   {
     id: 2,
     name: "Double",
     description: "A relaxing room with one double bed.",
-    image: "https://placehold.co/600x400?text=Double+Room",
+    image: "/images/double_bedroom.webp",
   },
   {
     id: 3,
     name: "Twin",
     description: "A room with two separate beds.",
-    image: "https://placehold.co/600x400?text=Twin+Room",
+    image: "/images/twin_bedroom.webp",
   },
 ];
 

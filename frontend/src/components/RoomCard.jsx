@@ -4,7 +4,7 @@ function RoomCard({ room, onSelect }) {
             <img src={room.image} alt={room.name} />
 
             <h2>{room.name}</h2>
-            <p>{room.discription}</p>
+            <p>{room.description}</p>
 
             <button onClick={() => onSelect(room.name) }>
                 Select room
