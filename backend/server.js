@@ -1,4 +1,4 @@
-// receives req and res
+// API Server: receives req and res
 const database = require("./db");
 const express = require("express");
 const cors = require("cors");

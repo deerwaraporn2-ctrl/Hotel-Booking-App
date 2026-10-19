@@ -26,7 +26,7 @@ async function connectDatabase() {
 
         console.log("Ansluten till databasen");
 
-        // Returnerar databasen så att vi kan använda den i server.js
+        // Returnerar databasen så att jag kan använda den i server.js
         return database;
 
     } catch (err) {
