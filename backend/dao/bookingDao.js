@@ -22,12 +22,13 @@ async function createBooking(roomType, guestName, guestEmail, guestPhone, checkI
 async function updateBooking(id, roomType, guestName, guestEmail, guestPhone, checkIn, checkOut) {
     const db = await database;
 
-    await db.run(
+    const updatedBooking = await db.run(
        `UPDATE bookings
         SET room_type = ?, guest_name = ?, guest_email = ?, guest_phone = ?, check_in = ?, check_out = ?
         WHERE id = ?`, 
         [roomType, guestName, guestEmail, guestPhone, checkIn, checkOut, id]
     );
+    return updatedBooking.changes;
 }
 
 

@@ -46,20 +46,42 @@ app.post("/bookings", async (req, res) => {
 });
 
 // Update: change a booking
+
 app.put("/bookings/:id", async (req, res) => {
     const { id } = req.params;
-    const { roomType, guestName, guestEmail, guestPhone, checkIn, checkOut } = req.body;
+    const {
+        roomType,
+        guestName,
+        guestEmail,
+        guestPhone,
+        checkIn,
+        checkOut
+    } = req.body;
 
     try {
-        await updateBooking(
-            id, roomType, guestName, guestEmail, guestPhone, checkIn, checkOut
+        const changes = await updateBooking(
+            id,
+            roomType,
+            guestName,
+            guestEmail,
+            guestPhone,
+            checkIn,
+            checkOut
         );
+
+        if (changes === 0) {
+            return res.status(404).json({
+                message: `Booking ${id} not found.`
+            });
+        }
+
         res.json({ message: `Bokning uppdaterad, id ${id}` });
     } catch (error) {
-        console.log(`Något gick fel: ${error}`);
+        console.error("Något gick fel:", error);
         res.status(500).json({ message: "Något gick fel" });
     }
 });
+
 
 // Delete: remove a booking
 app.delete("/bookings/:id", async (req, res) => {
@@ -86,33 +108,42 @@ app.get("/admin-secret-bookings", async (req, res) => {
 });
 
 // Update a booking
+
 app.put("/admin-secret-bookings/:id", async (req, res) => {
-  const { id } = req.params;
-  const {
-    roomType,
-    guestName,
-    guestEmail,
-    guestPhone,
-    checkIn,
-    checkOut
-  } = req.body;
-  
-  try {
-    await updateBooking(
-      id,
-      roomType,
-      guestName,
-      guestEmail,
-      guestPhone,
-      checkIn,
-      checkOut
-    );
-    
-    res.json({ message: `Booking ${id} updated.` });
-  } catch (error) {
-    console.error("Could not update booking:", error);
-    res.status(500).json({ message: "Could not update booking." });
-  }
+    const { id } = req.params;
+    const {
+        roomType,
+        guestName,
+        guestEmail,
+        guestPhone,
+        checkIn,
+        checkOut
+    } = req.body;
+
+    try {
+        const changes = await updateBooking(
+            id,
+            roomType,
+            guestName,
+            guestEmail,
+            guestPhone,
+            checkIn,
+            checkOut
+        );
+
+        if (changes === 0) {
+            return res.status(404).json({
+                message: `Booking ${id} not found.`
+            });
+        }
+
+        res.json({ message: `Booking ${id} updated.` });
+    } catch (error) {
+        console.error("Could not update booking:", error);
+        res.status(500).json({
+            message: "Could not update booking."
+        });
+    }
 });
 
 // Delete a booking
