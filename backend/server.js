@@ -73,16 +73,7 @@ app.delete("/bookings/:id", async (req, res) => {
         res.status(500).json({ message: "Något gick fel" });
     }
 });
-
-const PORT = 5001;
-
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
-});
-
-
 /* Secret admin endpoints */
-
 // List all bookings
 app.get("/admin-secret-bookings", async (req, res) => {
   try {
@@ -105,7 +96,7 @@ app.put("/admin-secret-bookings/:id", async (req, res) => {
     checkIn,
     checkOut
   } = req.body;
-
+  
   try {
     await updateBooking(
       id,
@@ -116,7 +107,7 @@ app.put("/admin-secret-bookings/:id", async (req, res) => {
       checkIn,
       checkOut
     );
-
+    
     res.json({ message: `Booking ${id} updated.` });
   } catch (error) {
     console.error("Could not update booking:", error);
@@ -127,7 +118,7 @@ app.put("/admin-secret-bookings/:id", async (req, res) => {
 // Delete a booking
 app.delete("/admin-secret-bookings/:id", async (req, res) => {
   const { id } = req.params;
-
+  
   try {
     await deleteBooking(id);
     res.json({ message: `Booking ${id} deleted.` });
@@ -135,4 +126,9 @@ app.delete("/admin-secret-bookings/:id", async (req, res) => {
     console.error("Could not delete booking:", error);
     res.status(500).json({ message: "Could not delete booking." });
   }
+});
+const PORT = 5001;
+
+app.listen(PORT, () => {
+  console.log(`Server is running at http://localhost:${PORT}`);
 });
