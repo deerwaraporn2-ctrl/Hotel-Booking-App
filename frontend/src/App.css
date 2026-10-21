@@ -162,3 +162,44 @@ form button {
   font-weight: 500;
   margin-bottom: 24px;
 }
+.booking-success {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  max-width: 540px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #e8f3e8;
+  color: #285b35;
+  border: 1px solid #c4dfc7;
+  border-radius: 12px;
+  font-size: 17px;
+  line-height: 1.6;
+}
+
+.booking-success strong {
+  font-size: 21px;
+}
+
+.booking-success small {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.success-icon {
+  font-size: 26px;
+  font-weight: bold;
+}
+.booking-error {
+  max-width: 540px;
+  margin: 20px auto;
+  padding: 16px 20px;
+  background-color: #fbe9e7;
+  color: #a52a2a;
+  border: 1px solid #e8b4ae;
+  border-radius: 12px;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+}

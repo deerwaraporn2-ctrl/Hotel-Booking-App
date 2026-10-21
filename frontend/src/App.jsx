@@ -31,18 +31,25 @@ const rooms = [
 function App() {
   const [selectedRoom, setSelectedRoom] = useState("");
   const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   const handleBooking = async (booking) => {
+    setMessage("");
+    setMessageType("");
+
     if (booking.checkOut <= booking.checkIn) {
       setMessage("Check-out must be after check-in.");
+      setMessageType("error");
       return;
     }
 
     try {
       const data = await fetchData("bookings", "POST", booking);
       setMessage(data.message);
+      setMessageType("success");
     } catch (error) {
       setMessage("Could not create booking. Please try again.");
+      setMessageType("error");
     }
   };
 
@@ -61,8 +68,24 @@ function App() {
       {selectedRoom && (
         <BookingForm selectedRoom={selectedRoom} onBook={handleBooking} />
       )}
+      {message && messageType === "success" && (
+        <p className="booking-success" role="status">
+          <span className="success-icon">✓</span>
+          <span>
+            <strong>Booking confirmed!</strong>
+            <br />
+            Thank you for choosing us. Your room has been booked successfully.
+            <br />
+            <small>{message}</small>
+          </span>
+        </p>
+      )}
 
-      {message && <p role="status">{message}</p>}
+      {message && messageType === "error" && (
+        <p className="booking-error" role="alert">
+          {message}
+        </p>
+      )}
     </main>
   );
 }
