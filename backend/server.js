@@ -1,5 +1,4 @@
 // API Server: receives req and res
-const database = require("./db");
 const express = require("express");
 const cors = require("cors");
 
@@ -25,8 +24,8 @@ app.get("/bookings", async (req, res) => {
         const data = await getBookings();
         res.json(data);
     } catch (error) {
-        console.log(`Något gick fel: ${error}`);
-        res.status(500).json({ message: "Något gick fel" });
+        console.log(`Something went wrong: ${error}`);
+        res.status(500).json({ message: "Something went wrong" });
     }
 });
 
@@ -38,10 +37,10 @@ app.post("/bookings", async (req, res) => {
         const data = await createBooking(
             roomType, guestName, guestEmail, guestPhone, checkIn, checkOut
         );
-        res.json({ message: `Bokning skapad, id ${data}` });
+        res.json({ message: `Booking created, id ${data}` });
     } catch (error) {
-        console.log(`Något gick fel: ${error}`);
-        res.status(500).json({ message: "Något gick fel" });
+        console.log(`Somthing went wrong: ${error}`);
+        res.status(500).json({ message: "Something went wrong" });
     }
 });
 
@@ -75,10 +74,10 @@ app.put("/bookings/:id", async (req, res) => {
             });
         }
 
-        res.json({ message: `Bokning uppdaterad, id ${id}` });
+        res.json({ message: `Booking updated, id ${id}` });
     } catch (error) {
-        console.error("Något gick fel:", error);
-        res.status(500).json({ message: "Något gick fel" });
+        console.error("Something went wrong:", error);
+        res.status(500).json({ message: "Something went wrong" });
     }
 });
 
@@ -89,10 +88,10 @@ app.delete("/bookings/:id", async (req, res) => {
 
     try {
         await deleteBooking(id);
-        res.json({ message: `Bokning borttagen, id ${id}` });
+        res.json({ message: `Booking removed, id ${id}` });
     } catch (error) {
-        console.log(`Något gick fel: ${error}`);
-        res.status(500).json({ message: "Något gick fel" });
+        console.log(`Something went wrong: ${error}`);
+        res.status(500).json({ message: "Something went wrong" });
     }
 });
 /* Secret admin endpoints */
