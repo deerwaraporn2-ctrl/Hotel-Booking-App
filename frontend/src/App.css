@@ -1,8 +1,3 @@
-/* ==========================================================
-   Aurelia Resort – cleaned stylesheet
-   (each rule lives in ONE place; no duplicate overrides)
-   ========================================================== */
-
 /* ---------- Base layout ---------- */
 html {
   scroll-behavior: smooth;
@@ -206,6 +201,10 @@ section > h2 {
   box-sizing: border-box;
   cursor: pointer;
 }
+.room-price {
+  display: flex;
+  gap: 6px;
+}
 
 /* ---------- Buttons ---------- */
 button {
@@ -402,5 +401,122 @@ form button {
 
   .room-card:hover {
     transform: none;
+  }
+}
+
+/* ---------- Booking confirmation popup ---------- */
+/* Booking confirmation popup */
+.confirmation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(45, 37, 31, 0.55);
+  backdrop-filter: blur(4px);
+}
+
+.confirmation-modal {
+  width: 100%;
+  max-width: 460px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 24px;
+  text-align: center;
+  background: #fffcf7;
+  border: 1px solid #e6d7c7;
+  border-radius: 18px;
+  box-shadow: 0 20px 60px rgba(45, 37, 31, 0.2);
+  animation: confirmation-appear 0.25s ease-out;
+}
+
+.confirmation-image {
+  display: block;
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.confirmation-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  margin: 22px 0 12px;
+  color: #66846a;
+  background: #e8f1e5;
+  border-radius: 50%;
+  font-size: 34px;
+  font-weight: 600;
+}
+
+.confirmation-modal h2 {
+  margin: 0 0 12px;
+  color: #49382f;
+  font-size: 26px;
+}
+
+.confirmation-modal p {
+  margin: 8px 0;
+  color: #6e6258;
+  line-height: 1.6;
+}
+
+.confirmation-divider {
+  height: 1px;
+  margin: 20px 0;
+  background: #e8ded2;
+}
+
+.confirmation-modal .confirmation-detail {
+  font-size: 14px;
+  color: #8b7d70;
+}
+
+.confirmation-button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 14px 18px;
+  color: white;
+  background: #b97052;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.confirmation-button:hover {
+  background: #a65f43;
+}
+
+@keyframes confirmation-appear {
+  from {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 480px) {
+  .confirmation-modal {
+    padding: 18px;
+  }
+
+  .confirmation-modal h2 {
+    font-size: 22px;
+  }
+
+  .confirmation-image {
+    height: 150px;
   }
 }

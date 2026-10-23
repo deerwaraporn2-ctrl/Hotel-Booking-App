@@ -11,18 +11,21 @@ const rooms = [
   {
     id: 1,
     name: "Single",
+    price: 1800,
     description: "A comfortable room for one guest.",
     image: "/images/room-single.webp",
   },
   {
     id: 2,
     name: "Double",
+    price: 2200,
     description: "A relaxing room with one double bed.",
     image: "/images/room-double.webp",
   },
   {
     id: 3,
     name: "Twin",
+    price: 2400,
     description: "A room with two separate beds.",
     image: "/images/room-twin.webp",
   },
@@ -32,6 +35,7 @@ function App() {
   const [selectedRoom, setSelectedRoom] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [showConfirmation, setShowConfirmation] = useState(false);
 
   const handleBooking = async (booking) => {
     setMessage("");
@@ -47,6 +51,7 @@ function App() {
       const data = await fetchData("bookings", "POST", booking);
       setMessage(data.message);
       setMessageType("success");
+      setShowConfirmation(true);
     } catch (error) {
       setMessage("Could not create booking. Please try again.");
       setMessageType("error");
@@ -91,21 +96,50 @@ function App() {
         <BookingForm selectedRoom={selectedRoom} onBook={handleBooking} />
       )}
 
-      {/* success message */}
-      {message && messageType === "success" && (
-        <p className="booking-success" role="status">
-          <span className="success-icon">✓</span>
-          <span>
-            <strong>Booking confirmed!</strong>
-            <br />
-            Thank you for choosing us. Your room has been booked successfully.
-            <br />
-            <small>{message}</small>
-          </span>
-        </p>
+      {/* Booking confirmation popup */}
+      {showConfirmation && messageType === "success" && (
+        <div
+          className="confirmation-overlay"
+          onClick={() => setShowConfirmation(false)}
+        >
+          <section
+            className="confirmation-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="confirmation-title"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <img
+              className="confirmation-image"
+              src={rooms.find((room) => room.name === selectedRoom)?.image}
+              alt={`${selectedRoom} room at Aurelia Retreat`}
+            />
+
+            <span className="confirmation-icon">✓</span>
+
+            <h2 id="confirmation-title">Your stay is confirmed!</h2>
+
+            <p>Thank you for choosing Aurelia Retreat.</p>
+            <p>We look forward to welcoming you.</p>
+
+            <div className="confirmation-divider" />
+
+            <p className="confirmation-detail">{message}</p>
+
+            <button
+              className="confirmation-button"
+              onClick={() => {
+                setShowConfirmation(false);
+                setSelectedRoom("");
+              }}
+            >
+              Wonderful — see you soon!
+            </button>
+          </section>
+        </div>
       )}
-      
-      {/*error message */} 
+
+      {/*error message */}
       {message && messageType === "error" && (
         <p className="booking-error" role="alert">
           {message}

@@ -70,12 +70,12 @@ function BookingForm({ selectedRoom, onBook }) {
 
       <label>
         Check-In
-        <input name="checkIn" type="date" required />
+        <input name="checkIn" type="date" min={new Date().toISOString().split("T")[0]} required />
       </label>
 
       <label>
         Check-out
-        <input name="checkOut" type="date" required />
+        <input name="checkOut" type="date" min={new Date().toISOString().split("T")[0]} required />
       </label>
 
       <button type="submit" disabled={!selectedRoom}>
