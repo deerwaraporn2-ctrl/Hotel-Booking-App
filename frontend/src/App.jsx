@@ -86,14 +86,29 @@ function App() {
 
         <div className="room-grid">
           {rooms.map((room) => (
-            <RoomCard key={room.id} room={room} onSelect={setSelectedRoom} />
+            <RoomCard
+              key={room.id}
+              room={room}
+              onSelect={(roomName) => {
+                setSelectedRoom(roomName);
+
+                setTimeout(() => {
+                  document.getElementById("booking-form")?.scrollIntoView({
+                    behavior: "smooth",
+                    block: "start",
+                  });
+                }, 100);
+              }}
+            />
           ))}
         </div>
       </section>
 
       {/* booking form */}
       {selectedRoom && (
-        <BookingForm selectedRoom={selectedRoom} onBook={handleBooking} />
+        <div id="booking-form">
+          <BookingForm selectedRoom={selectedRoom} onBook={handleBooking} />
+        </div>
       )}
 
       {/* Booking confirmation popup */}
