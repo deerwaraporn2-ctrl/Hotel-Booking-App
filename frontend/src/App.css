@@ -1,23 +1,22 @@
+/* ==========================================================
+   Aurelia Resort – cleaned stylesheet
+   (each rule lives in ONE place; no duplicate overrides)
+   ========================================================== */
+
+/* ---------- Base layout ---------- */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 20px;
+}
+
+body {
+  overflow-x: hidden; /* prevents sideways scroll from the 100vw hero */
+}
 
 main {
   width: min(1100px, 100%);
   margin: 0 auto;
-  padding: 32px 24px 56px;
-}
-
-header {
-  text-align: center;
-  padding: 28px 16px 40px;
-}
-
-header h1 {
-  margin-bottom: 10px;
-  letter-spacing: -1px;
-}
-
-header p {
-  color: var(--color-muted);
-  font-size: 1.05rem;
+  padding: 0 24px 56px;
 }
 
 section {
@@ -29,39 +28,186 @@ section > h2 {
   margin-bottom: 24px;
 }
 
-section:has(article) {
+/* ---------- Header (kept compact so the hero + rooms fit on screen) ---------- */
+.hotel-header {
+  text-align: center;
+  padding: 28px 20px 20px;
+}
+
+.hotel-eyebrow {
+  color: #b86f50;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.hotel-header h1 {
+  margin: 0;
+  letter-spacing: -1px;
+}
+
+.hotel-tagline {
+  margin-top: 8px;
+  color: #66574e;
+  font-size: 18px;
+  line-height: 1.5;
+}
+
+.header-divider {
+  display: block;
+  width: 48px;
+  height: 2px;
+  background-color: #bd7557;
+  margin: 16px auto 0;
+}
+
+/* ---------- Hero banner ---------- */
+/* Full-width, fixed-proportion banner. The image fills it completely
+   (object-fit: cover) so there are no dark bars on the sides. */
+.hero-section {
+  position: relative;
+  width: 100vw;
+  margin: 0 0 32px calc(50% - 50vw);
+  height: clamp(260px, 40vh, 420px); /* tall enough to look like a banner, short enough to show room cards */
+  overflow: hidden;
+  background: #3e2d24; /* only visible while the image loads */
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 60%; /* change to "center" or "center 40%" to choose which part is kept */
+}
+
+.hero-content {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 24px max(5%, calc((100vw - 1100px) / 2));
+  box-sizing: border-box;
+  color: #fffaf4;
+  background: linear-gradient(
+    90deg,
+    rgba(45, 31, 24, 0.75) 0%,
+    rgba(45, 31, 24, 0.4) 45%,
+    rgba(45, 31, 24, 0.05) 100%
+  );
+}
+
+.hero-content > p {
+  margin: 0;
+  color: #fffaf4;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 3px;
+}
+
+.hero-content h2 {
+  margin: 10px 0;
+  color: #fffaf4;
+  text-align: left;
+  font-size: clamp(28px, 4vw, 46px);
+  line-height: 1.15;
+}
+
+.hero-content span {
+  display: block;
+  max-width: 34ch;
+  margin-bottom: 20px;
+  color: #fffaf4;
+  font-size: clamp(15px, 1.5vw, 19px);
+  line-height: 1.6;
+}
+
+.hero-button {
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 8px;
+  background: var(--color-accent, #bd7557);
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: background 0.2s ease;
+}
+
+.hero-button:hover {
+  background: var(--color-accent-hover, #a5603f);
+}
+
+/* ---------- Room cards ---------- */
+.room-section {
+  display: block;
+  width: 100%;
+}
+
+.room-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 24px;
+  align-items: stretch;
 }
 
-section:has(article) > h2 {
-  grid-column: 1 / -1;
-}
-
-article {
+.room-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
   overflow: hidden;
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: 14px;
-  box-shadow: 0 4px 16px rgba(62, 53, 47, 0.06);
+  box-shadow: 0 5px 18px rgba(62, 53, 47, 0.09);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-article img {
+.room-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 26px rgba(62, 53, 47, 0.15);
+}
+
+.room-card .room-image {
+  display: block;
   width: 100%;
-  height: 210px;
+  height: 190px;
   object-fit: cover;
 }
 
-article h2 {
-  margin: 20px 20px 8px;
+.room-card-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: stretch;
+  min-width: 0;
+  padding: 18px 20px 20px;
 }
 
-article p {
-  margin: 0 20px 20px;
+.room-card-content h2 {
+  margin: 0 0 8px;
+  text-align: left;
+}
+
+.room-card-content p {
+  margin: 0 0 20px;
   color: var(--color-muted);
+  line-height: 1.6;
+  overflow-wrap: break-word;
 }
 
+.room-card .room-select-button {
+  width: 100%;
+  margin: auto 0 0;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* ---------- Buttons ---------- */
 button {
   border: none;
   border-radius: 8px;
@@ -81,11 +227,7 @@ button:disabled {
   cursor: not-allowed;
 }
 
-article button {
-  width: calc(100% - 40px);
-  margin: 0 20px 20px;
-}
-
+/* ---------- Booking form ---------- */
 form {
   max-width: 650px;
   margin: 0 auto;
@@ -132,6 +274,13 @@ form button {
   margin-top: 8px;
 }
 
+.selected-room {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 24px;
+}
+
+/* ---------- Status messages ---------- */
 [role="status"] {
   max-width: 650px;
   margin: 20px auto 0;
@@ -139,29 +288,6 @@ form button {
   color: var(--color-text);
 }
 
-@media (max-width: 760px) {
-  main {
-    padding: 20px 16px 40px;
-  }
-
-  section:has(article) {
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-
-  article img {
-    height: 230px;
-  }
-
-  form {
-    padding: 22px 18px;
-  }
-}
-.selected-room {
-  font-size: 1.1rem;
-  font-weight: 500;
-  margin-bottom: 24px;
-}
 .booking-success {
   display: flex;
   align-items: flex-start;
@@ -191,6 +317,7 @@ form button {
   font-size: 26px;
   font-weight: bold;
 }
+
 .booking-error {
   max-width: 540px;
   margin: 20px auto;
@@ -202,4 +329,78 @@ form button {
   font-size: 18px;
   font-weight: 600;
   text-align: center;
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 760px) {
+  main {
+    padding: 0 16px 40px;
+  }
+
+  .hotel-header {
+    padding: 20px 16px 14px;
+  }
+
+  .hero-section {
+    height: clamp(280px, 48vh, 380px);
+    margin-bottom: 28px;
+  }
+
+  /* darker overlay from the bottom so text stays readable on a narrow image */
+  .hero-content {
+    padding: 24px;
+    background: linear-gradient(
+      180deg,
+      rgba(45, 31, 24, 0.25) 0%,
+      rgba(45, 31, 24, 0.7) 100%
+    );
+  }
+
+  .hero-content > p {
+    font-size: 11px;
+    letter-spacing: 2px;
+  }
+
+  .hero-content h2 {
+    font-size: clamp(25px, 7vw, 34px);
+  }
+
+  .hero-content span {
+    font-size: 15px;
+    margin-bottom: 16px;
+  }
+
+  .hero-button {
+    font-size: 15px;
+    padding: 11px 18px;
+  }
+
+  .room-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .room-card .room-image {
+    height: 230px;
+  }
+
+  form {
+    padding: 22px 18px;
+  }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .room-card,
+  .hero-button {
+    transition: none;
+  }
+
+  .room-card:hover {
+    transform: none;
+  }
 }

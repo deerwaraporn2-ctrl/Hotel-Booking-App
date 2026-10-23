@@ -12,19 +12,19 @@ const rooms = [
     id: 1,
     name: "Single",
     description: "A comfortable room for one guest.",
-    image: "/images/single_bedroom.webp",
+    image: "/images/room-single.webp",
   },
   {
     id: 2,
     name: "Double",
     description: "A relaxing room with one double bed.",
-    image: "/images/double_bedroom.webp",
+    image: "/images/room-double.webp",
   },
   {
     id: 3,
     name: "Twin",
     description: "A room with two separate beds.",
-    image: "/images/twin_bedroom.webp",
+    image: "/images/room-twin.webp",
   },
 ];
 
@@ -57,17 +57,41 @@ function App() {
     <main>
       <Header />
 
-      <section>
-        <h2>Choose your room</h2>
+      {/* hero section */}
+      <section className="hero-section">
+        <img
+          className="hero-image"
+          src="/images/Aurelia-hero.webp"
+          alt="Welcoming boutique hotel lobby"
+        />
 
-        {rooms.map((room) => (
-          <RoomCard key={room.id} room={room} onSelect={setSelectedRoom} />
-        ))}
+        <div className="hero-content">
+          <p>A PLACE TO UNWIND</p>
+          <h2>Your stay, your sanctuary.</h2>
+          <span>Thoughtful comfort. Beautiful moments.</span>
+          <a href="#rooms" className="hero-button">
+            Explore our rooms
+          </a>
+        </div>
       </section>
 
+      {/* room selection */}
+      <section className="room-section" id="rooms">
+        <h2>Choose your room</h2>
+
+        <div className="room-grid">
+          {rooms.map((room) => (
+            <RoomCard key={room.id} room={room} onSelect={setSelectedRoom} />
+          ))}
+        </div>
+      </section>
+
+      {/* booking form */}
       {selectedRoom && (
         <BookingForm selectedRoom={selectedRoom} onBook={handleBooking} />
       )}
+
+      {/* success message */}
       {message && messageType === "success" && (
         <p className="booking-success" role="status">
           <span className="success-icon">✓</span>
@@ -80,7 +104,8 @@ function App() {
           </span>
         </p>
       )}
-
+      
+      {/*error message */} 
       {message && messageType === "error" && (
         <p className="booking-error" role="alert">
           {message}

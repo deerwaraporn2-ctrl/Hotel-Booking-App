@@ -1,11 +1,14 @@
 function Header() {
-    return (
-        <header>
-            <h1>Hotel Booking</h1>
-            <p>Find your perfect room</p>
-        </header>
-
-    );
+ return (
+    <header className="hotel-header">
+      <p className="hotel-eyebrow">WELCOME TO YOUR NEXT GETAWAY</p>
+      <h1>Aurelia Resort</h1>
+      <p className="hotel-tagline">
+        A relaxing stay, thoughtfully designed.
+      </p>
+      <span className="header-divider"></span>
+    </header>
+  );
 }
 
 export default Header;
