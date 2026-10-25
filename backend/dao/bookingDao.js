@@ -35,10 +35,11 @@ async function updateBooking(id, roomType, guestName, guestEmail, guestPhone, ch
 async function deleteBooking(id) {
     const db = await database;
 
-    await db.run(
+    const result = await db.run(
         "DELETE FROM bookings WHERE id = ?",
         [id]
     );
+    return result.changes;
 }
 
 

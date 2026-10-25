@@ -1,4 +1,5 @@
 // API Server: receives req and res
+require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 
@@ -8,6 +9,8 @@ const {
     updateBooking,
     deleteBooking
 } = require("./dao/bookingDao");
+const requireAdmin = require("./middleware/requireAdmin");
+const validateBooking = require("./middleware/validateBooking");
 
 const app = express();
 
@@ -28,16 +31,16 @@ app.get("/bookings", async (req, res) => {
         res.status(500).json({ message: "Something went wrong" });
     }
 });
-
+// Public Route
 // Create: add a booking
-app.post("/bookings", async (req, res) => {
+app.post("/bookings", validateBooking, async (req, res) => {
     const { roomType, guestName, guestEmail, guestPhone, checkIn, checkOut } = req.body;
 
     try {
         const data = await createBooking(
             roomType, guestName, guestEmail, guestPhone, checkIn, checkOut
         );
-        res.json({ message: `Booking created, id ${data}` });
+        res.status(201).json({ id: data, message: `Booking created, id ${data}` });
     } catch (error) {
         console.log(`Somthing went wrong: ${error}`);
         res.status(500).json({ message: "Something went wrong" });
