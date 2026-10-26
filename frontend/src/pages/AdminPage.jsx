@@ -7,6 +7,7 @@ function AdminPage() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState("");
   const [editingBooking, setEditingBooking] = useState(null);
+  const [editForm, setEditForm] = useState({});
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -37,6 +38,53 @@ function AdminPage() {
     }
   };
 
+  const startEdit = (booking) => {
+    setEditingBooking(booking);
+    setEditForm({
+      roomType: booking.room_type,
+      guestName: booking.guest_name,
+      guestEmail: booking.guest_email,
+      guestPhone: booking.guest_phone,
+      checkIn: booking.check_in,
+      checkOut: booking.check_out,
+    });
+  };
+
+  const handleEditChange = (event) => {
+    setEditForm({ ...editForm, [event.target.name]: event.target.value });
+  };
+
+  const handleSave = async (event) => {
+    event.preventDefault();
+    setError("");
+
+    try {
+      await fetchData(`admin/bookings/${editingBooking.id}`, "PUT", editForm, {
+        "x-admin-password": password,
+      });
+
+      // update the row on screen with the new values
+      setBookings(
+        bookings.map((booking) =>
+          booking.id === editingBooking.id
+            ? {
+                ...booking,
+                room_type: editForm.roomType,
+                guest_name: editForm.guestName,
+                guest_email: editForm.guestEmail,
+                guest_phone: editForm.guestPhone,
+                check_in: editForm.checkIn,
+                check_out: editForm.checkOut,
+              }
+            : booking,
+        ),
+      );
+      setEditingBooking(null);
+    } catch (err) {
+      setError(err.message || "Could not save booking.");
+    }
+  };
+
   if (!isLoggedIn) {
     return (
       <form onSubmit={handleLogin}>
@@ -59,9 +107,74 @@ function AdminPage() {
       <h1>Bookings ({bookings.length})</h1>
       {error && <p role="alert">{error}</p>}
       {editingBooking && (
-        <p>
-          Editing booking #{editingBooking.id}: {editingBooking.guest_name}
-        </p>
+         <form onSubmit={handleSave}>
+          <h2>Edit booking #{editingBooking.id}</h2>
+
+          <label>
+            Room
+            <select
+              name="roomType"
+              value={editForm.roomType}
+              onChange={handleEditChange}
+            >
+              <option value="Single">Single</option>
+              <option value="Double">Double</option>
+              <option value="Twin">Twin</option>
+            </select>
+          </label>
+
+          <label>
+            Guest name
+            <input
+              name="guestName"
+              value={editForm.guestName}
+              onChange={handleEditChange}
+            />
+          </label>
+
+          <label>
+            Email
+            <input
+              name="guestEmail"
+              type="email"
+              value={editForm.guestEmail}
+              onChange={handleEditChange}
+            />
+          </label>
+
+          <label>
+            Phone
+            <input
+              name="guestPhone"
+              value={editForm.guestPhone}
+              onChange={handleEditChange}
+            />
+          </label>
+
+          <label>
+            Check-in
+            <input
+              name="checkIn"
+              type="date"
+              value={editForm.checkIn}
+              onChange={handleEditChange}
+            />
+          </label>
+
+          <label>
+            Check-out
+            <input
+              name="checkOut"
+              type="date"
+              value={editForm.checkOut}
+              onChange={handleEditChange}
+            />
+          </label>
+          <button type="submit">Save changes</button>
+          <button type="button" onClick={() => setEditingBooking(null)}>
+            Cancel
+          </button>
+        </form>
       )}
       <table>
         <thead>
@@ -85,7 +198,7 @@ function AdminPage() {
               <td>{booking.check_out}</td>
               <td>{booking.guest_email}</td>
               <td>
-                <button onClick={() => setEditingBooking(booking)}>Edit</button>{" "}
+                <button onClick={() => startEdit(booking)}>Edit</button>{" "}
                 <button onClick={() => handleDelete(booking.id)}>Delete</button>
               </td>
             </tr>
