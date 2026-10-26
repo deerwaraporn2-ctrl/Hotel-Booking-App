@@ -6,6 +6,7 @@ function AdminPage() {
   const [bookings, setBookings] = useState([]);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [error, setError] = useState("");
+  const [editingBooking, setEditingBooking] = useState(null);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -57,6 +58,11 @@ function AdminPage() {
     <div>
       <h1>Bookings ({bookings.length})</h1>
       {error && <p role="alert">{error}</p>}
+      {editingBooking && (
+        <p>
+          Editing booking #{editingBooking.id}: {editingBooking.guest_name}
+        </p>
+      )}
       <table>
         <thead>
           <tr>
@@ -79,6 +85,7 @@ function AdminPage() {
               <td>{booking.check_out}</td>
               <td>{booking.guest_email}</td>
               <td>
+                <button onClick={() => setEditingBooking(booking)}>Edit</button>{" "}
                 <button onClick={() => handleDelete(booking.id)}>Delete</button>
               </td>
             </tr>
