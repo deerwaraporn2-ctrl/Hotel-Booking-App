@@ -42,14 +42,30 @@ function AdminPage() {
   return (
     <div>
       <h1>Bookings ({bookings.length})</h1>
-      <ul>
-        {bookings.map((booking) => (
-          <li key={booking.id}>
-            #{booking.id} {booking.guest_name}, {booking.room_type},{" "}
-            {booking.check_in} to {booking.check_out}
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Guest</th>
+            <th>Room</th>
+            <th>Check-in</th>
+            <th>Check-out</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody>
+          {bookings.map((booking) => (
+            <tr key={booking.id}>
+              <td>{booking.id}</td>
+              <td>{booking.guest_name}</td>
+              <td>{booking.room_type}</td>
+              <td>{booking.check_in}</td>
+              <td>{booking.check_out}</td>
+              <td>{booking.guest_email}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
