@@ -22,6 +22,20 @@ function AdminPage() {
     }
   };
 
+  const handleDelete = async (id) => {
+    const confirmed = window.confirm(`Delete booking #${id}?`);
+    if (!confirmed) return;
+
+    try {
+      await fetchData(`admin/bookings/${id}`, "DELETE", null, {
+        "x-admin-password": password,
+      });
+      setBookings(bookings.filter((booking) => booking.id !== id));
+    } catch (err) {
+      setError("Could not delete booking.");
+    }
+  };
+
   if (!isLoggedIn) {
     return (
       <form onSubmit={handleLogin}>
@@ -42,6 +56,7 @@ function AdminPage() {
   return (
     <div>
       <h1>Bookings ({bookings.length})</h1>
+      {error && <p role="alert">{error}</p>}
       <table>
         <thead>
           <tr>
@@ -51,6 +66,7 @@ function AdminPage() {
             <th>Check-in</th>
             <th>Check-out</th>
             <th>Email</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -62,6 +78,9 @@ function AdminPage() {
               <td>{booking.check_in}</td>
               <td>{booking.check_out}</td>
               <td>{booking.guest_email}</td>
+              <td>
+                <button onClick={() => handleDelete(booking.id)}>Delete</button>
+              </td>
             </tr>
           ))}
         </tbody>
