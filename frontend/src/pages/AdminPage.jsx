@@ -24,6 +24,15 @@ function AdminPage() {
     }
   };
 
+  const handleLogout = () => {
+    setPassword("");
+    setBookings([]);
+    setEditingBooking(null);
+    setEditForm({});
+    setError("");
+    setIsLoggedIn(false);
+  };
+
   const handleDelete = async (id) => {
     const confirmed = window.confirm(`Delete booking #${id}?`);
     if (!confirmed) return;
@@ -103,11 +112,19 @@ function AdminPage() {
   }
 
   return (
-    <div>
-      <h1>Bookings ({bookings.length})</h1>
+    <div className="admin-container">
+      <div className="admin-header">
+        <h1>Bookings ({bookings.length})</h1>
+
+        <button type="button" className="logout-btn" onClick={handleLogout}>
+          Log out
+        </button>
+      </div>
+
       {error && <p role="alert">{error}</p>}
+
       {editingBooking && (
-         <form onSubmit={handleSave}>
+        <form onSubmit={handleSave}>
           <h2>Edit booking #{editingBooking.id}</h2>
 
           <label>
