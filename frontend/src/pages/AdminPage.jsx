@@ -97,24 +97,44 @@ function AdminPage() {
 
   if (!isLoggedIn) {
     return (
-      <form onSubmit={handleLogin}>
-        <h1>Admin login</h1>
-        <input
-          type="password"
-          placeholder="Admin password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        />
-        <button type="submit">Log in</button>
-        {error && <p role="alert">{error}</p>}
-      </form>
+      <div className="admin-login-container">
+        <form className="admin-login-form" onSubmit={handleLogin}>
+          <div className="admin-login-brand">
+            <h1>Aurelia Resort</h1>
+            <p>Administration Portal</p>
+          </div>
+
+          <div className="admin-login-heading">
+            <h2>Welcome Back</h2>
+            <p>Sign in to manage your reservations.</p>
+          </div>
+
+          <div className="admin-login-field">
+            <label htmlFor="admin-password">Password</label>
+            <input
+              id="admin-password"
+              type="password"
+              placeholder="Enter your password"
+              value={password}
+              onChange={(event) => setPassword(event.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit">Log in</button>
+
+          {error && (
+            <p className="admin-login-error" role="alert">
+              {error}
+            </p>
+          )}
+        </form>
+      </div>
     );
   }
 
   return (
     <div className="admin-container">
-      
       <Link to="/" className="back-home-link">
         ← Back to Home
       </Link>

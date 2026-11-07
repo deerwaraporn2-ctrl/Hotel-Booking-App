@@ -528,3 +528,40 @@ form button {
   font-size: 20px;
 }
 
+.admin-login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 60px 24px 40px;
+}
+.admin-login-form {
+  width: 100%;
+  max-width: 850px;
+  padding: 60px 40px;
+
+  background: #fffdfa;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+
+  /* Soft 3D floating effect */
+  box-shadow:
+    0 4px 8px rgba(62, 53, 47, 0.03),
+    0 12px 24px rgba(62, 53, 47, 0.06),
+    0 28px 50px rgba(62, 53, 47, 0.10);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.admin-login-field input {
+  width: 100%;
+  padding: 14px 16px;
+  background-color: #ffffff;
+  border: 1px solid #e7ded3;
+  border-radius: 8px;
+  color: #3e352f;
+}
+
+.admin-login-field input:focus {
+  outline: 2px solid #b86f52;
+  outline-offset: 2px;
+}
