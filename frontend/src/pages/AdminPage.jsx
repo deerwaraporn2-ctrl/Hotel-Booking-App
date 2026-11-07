@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { fetchData } from "../functions/fetchData";
 
 function AdminPage() {
@@ -113,9 +114,15 @@ function AdminPage() {
 
   return (
     <div className="admin-container">
+      
+      <Link to="/" className="back-home-link">
+        ← Back to Home
+      </Link>
+
       <div className="admin-header">
         <h1>Bookings ({bookings.length})</h1>
 
+        {/* Logout button */}
         <button type="button" className="logout-btn" onClick={handleLogout}>
           Log out
         </button>
