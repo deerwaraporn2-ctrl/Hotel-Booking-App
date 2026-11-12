@@ -10,8 +10,13 @@ body {
 
 main {
   width: min(1100px, 100%);
+  min-height: 100vh;
   margin: 0 auto;
-  padding: 0 24px 56px;
+  padding: 0 24px 0;
+
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
 }
 
 section {
@@ -564,4 +569,86 @@ form button {
 .admin-login-field input:focus {
   outline: 2px solid #b86f52;
   outline-offset: 2px;
+}
+
+/* Footer */
+/* Footer */
+.site-footer {
+  width: 100vw;
+  box-sizing: border-box;
+
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 25px 8%;
+  background-color: #ead8ca;
+  color: #5f493e;
+
+  font-size: 0.85rem;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+/* Staff Login */
+.staff-login {
+  color: #a65f43;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: color 0.2s ease;
+}
+
+.staff-login:hover {
+  color: #754631;
+  text-decoration: underline;
+}
+
+.home-button {
+  display: block;
+  margin: 16px auto 0;
+  padding: 12px 28px;
+  background-color: #e8d8ca;
+  color: #674e40;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.home-button:hover {
+  background-color: #dcc4b2;
+}
+
+/* Back to Home button */
+.admin-home-button {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 12px;
+  padding: 12px 16px;
+
+  background-color: #e8d8ca;
+  color: #674e40;
+
+  border: 1px solid #dcc4b2;
+  border-radius: 8px;
+
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.admin-home-button:hover {
+  background-color: #dcc4b2;
+  color: #493b34;
 }

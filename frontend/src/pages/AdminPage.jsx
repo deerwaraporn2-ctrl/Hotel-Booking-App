@@ -123,6 +123,10 @@ function AdminPage() {
 
           <button type="submit">Log in</button>
 
+          <Link to="/" className="admin-home-button">
+            Back to Home
+          </Link>
+
           {error && (
             <p className="admin-login-error" role="alert">
               {error}

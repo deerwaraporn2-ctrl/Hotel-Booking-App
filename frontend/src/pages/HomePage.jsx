@@ -1,5 +1,6 @@
 // Manage the selected room, display the three room cards,
 // and connect the booking form to backend.
+import { Link } from "react-router-dom";
 import { rooms } from "../data/rooms";
 import { useState } from "react";
 import Header from "../components/Header";
@@ -111,7 +112,7 @@ function HomePage() {
 
             <h2 id="confirmation-title">Your stay is confirmed!</h2>
 
-            <p>Thank you for choosing Aurelia Retreat.</p>
+            <p>Thank you for booking with Aurelia Resort.</p>
             <p>We look forward to welcoming you.</p>
 
             <div className="confirmation-divider" />
@@ -125,7 +126,7 @@ function HomePage() {
                 setSelectedRoom("");
               }}
             >
-              Wonderful — see you soon!
+              Return to home
             </button>
           </section>
         </div>
@@ -137,6 +138,15 @@ function HomePage() {
           {message}
         </p>
       )}
+
+      {/* Footer */}
+      <footer className="site-footer">
+        <p>© 2026 Aurelia Resort. All rights reserved.</p>
+
+        <Link to="/admin" className="staff-login">
+          Staff Login
+        </Link>
+      </footer>
     </main>
   );
 }
