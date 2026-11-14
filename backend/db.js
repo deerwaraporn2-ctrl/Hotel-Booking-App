@@ -1,18 +1,26 @@
-// database connectin and table set up
-const sqlite3 = require("sqlite3");
-const { open } = require("sqlite");
 
-// Ansluter till databasen
+ // Database connection and table setup
+
+// Loads environment variables from the .env file
+require("dotenv").config();
+
+// Imports the createClient function from the Turso library
+const { createClient } = require("@libsql/client");
+
+// Connects to the database
 async function connectDatabase() {
     try {
-        // Öppnar databasen
-        const database = await open({
-            filename: "./bookings.db",
-            driver: sqlite3.Database
+        // Creates a connection to the Turso cloud database
+        const database = createClient({
+            // Gets the database URL from the .env file
+            url: process.env.TURSO_DATABASE_URL,
+
+            // Gets the authentication token from the .env file
+            authToken: process.env.TURSO_AUTH_TOKEN
         });
 
-        // Skapar tabellen bookings om den inte redan finns
-        await database.run(`
+        // Creates the bookings table if it does not already exist
+        await database.execute(`
             CREATE TABLE IF NOT EXISTS bookings (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
                 room_type TEXT NOT NULL,
@@ -24,20 +32,21 @@ async function connectDatabase() {
             )
         `);
 
-        console.log("Ansluten till databasen");
+        // Displays a message when the database connection is ready
+        console.log("Connected to Turso database");
 
-        // Returnerar databasen så att jag kan använda den i server.js
+        // Returns the database connection so other files can use it
         return database;
 
     } catch (err) {
-        // Fångar och visar fel vid anslutning eller skapande av tabell
-        console.error("Fel vid anslutning eller skapande av tabell:", err.message);
+        // Catches and displays errors during connection or table creation
+        console.error("Error connecting to Turso database:", err.message);
 
-        // Skickar felet vidare
+        // Passes the error to the calling code
         throw err;
     }
 }
 
-// Kör funktionen när filen laddas
+// Runs the connection function when this file is loaded
+// Exports the database promise so other files can access it
 module.exports = connectDatabase();
-
