@@ -44,7 +44,7 @@ function HomePage() {
       <section className="hero-section">
         <img
           className="hero-image"
-          src="/images/Aurelia-hero.webp"
+          src={`${import.meta.env.BASE_URL}images/Aurelia-hero.webp`}
           alt="Welcoming boutique hotel lobby"
         />
 
