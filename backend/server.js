@@ -14,7 +14,18 @@ const validateBooking = require("./middleware/validateBooking");
 
 const app = express();
 
-app.use(cors());
+// Defines which frontend origins are allowed to access the API
+const allowedOrigins = [
+    "http://localhost:5173",
+    "https://deerwaraporn2-ctrl.github.io"
+];
+
+// Configures CORS to allow requests from the specified origins
+app.use(cors({
+    origin: allowedOrigins
+}));
+
+// Allows Express to read JSON request bodies
 app.use(express.json());
 
 app.get("/", (req, res) => {
@@ -88,8 +99,17 @@ app.delete("/admin/bookings/:id", requireAdmin, async (req, res) => {
     }
 });
 
-const PORT = 5001;
+// Starts the server locally when running this file directly
+if (require.main === module) {
 
-app.listen(PORT, () => {
-  console.log(`Server is running at http://localhost:${PORT}`);
-});
+    // Uses the environment port if available, otherwise port 5001
+    const PORT = process.env.PORT || 5001;
+
+    // Starts the Express server
+    app.listen(PORT, () => {
+        console.log(`Server is running at http://localhost:${PORT}`);
+    });
+}
+
+// Exports the Express app so Vercel can handle incoming requests
+module.exports = app;
