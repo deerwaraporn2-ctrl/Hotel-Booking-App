@@ -39,7 +39,7 @@ This extension gave me practical experience with cloud database integration, bac
 
 Recruiters can use the demo staff login to explore the administration portal and test booking management functionality.
 
-- **Staff login password:** Coming soon
+- **Staff login password:** AuTest26
 
 The application uses fictional demo booking data. Please do not enter real personal information.
 
@@ -79,8 +79,8 @@ The application has a separate frontend and backend:
 
 ## Live Demo
 
-- **Frontend:** Coming soon
-- **Backend API:** Coming soon
+- **Frontend:** (https://deerwaraporn2-ctrl.github.io/Hotel-Booking-App/)
+- **Backend API:** https://hotel-booking-ellc87tvr-deerwaraporn2-ctrl.vercel.app/
 
 ## Running the Demo Locally
 
